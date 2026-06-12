@@ -1,0 +1,166 @@
+# Decap CMS Configuration | Valmartin Healthcare
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Local development backend (uncomment when running `npx decap-server`)
+# local_backend: true
+
+# Where uploaded media files are stored
+media_folder: "assets/images/uploads"
+public_folder: "/assets/images/uploads"
+
+# Site URL for previews
+site_url: https://valmartinhealthcare.org
+display_url: https://valmartinhealthcare.org
+logo_url: https://valmartinhealthcare.org/assets/images/logo.png
+
+# Editorial workflow allows draft/review/publish
+publish_mode: editorial_workflow
+
+collections:
+
+  # ============================================================
+  # SITE SETTINGS
+  # ============================================================
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - file: "_data/site.yml"
+        label: "General Settings"
+        name: "general"
+        fields:
+          - { label: "Clinic Name", name: "name", widget: "string", default: "Valmartin Healthcare" }
+          - { label: "Tagline (English)", name: "tagline_en", widget: "string", default: "We're here because you are. We CARE." }
+          - { label: "Tagline (French)", name: "tagline_fr", widget: "string", default: "Nous sommes là parce que vous l'êtes. Nous nous soucions." }
+          - { label: "Primary Phone", name: "phone_primary", widget: "string", default: "+237 678 935 587" }
+          - { label: "Secondary Phone", name: "phone_secondary", widget: "string", default: "+237 679 487 767" }
+          - { label: "Tertiary Phone", name: "phone_tertiary", widget: "string", default: "+237 659 033 495" }
+          - { label: "WhatsApp Number", name: "whatsapp", widget: "string", default: "237678935587" }
+          - { label: "Email", name: "email", widget: "string", default: "info@valmartinhealthcare.org" }
+          - { label: "Address Line 1", name: "address_1", widget: "string", default: "Former Bakery" }
+          - { label: "Address Line 2", name: "address_2", widget: "string", default: "Saker, Limbe" }
+          - { label: "Address Line 3", name: "address_3", widget: "string", default: "Fako Division, South West Region, Cameroon" }
+          - { label: "Operating Hours", name: "hours", widget: "string", default: "Open 24 hours, every day" }
+          - { label: "Registration Number", name: "reg_no", widget: "string", default: "268/G.37/A3/SAAJP" }
+          - { label: "Year Founded", name: "year_founded", widget: "number", default: 2021 }
+
+  # ============================================================
+  # HOMEPAGE CONTENT
+  # ============================================================
+  - name: "home"
+    label: "Homepage"
+    files:
+      - file: "_data/home.yml"
+        label: "Homepage Content"
+        name: "home"
+        fields:
+          - label: "Hero Section"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Eyebrow text", name: "eyebrow", widget: "string", default: "Community-based clinic, Limbe" }
+              - { label: "Headline (use *italic* for red emphasis)", name: "headline", widget: "string", default: "We're here because *you are.*" }
+              - { label: "Lead paragraph", name: "lede", widget: "text" }
+              - { label: "Primary CTA text", name: "cta_primary", widget: "string", default: "Book an Appointment" }
+              - { label: "Secondary CTA text", name: "cta_secondary", widget: "string", default: "Explore Services" }
+          - label: "Hero Image"
+            name: "hero_image"
+            widget: "image"
+            required: false
+          - label: "Stats"
+            name: "stats"
+            widget: "list"
+            fields:
+              - { label: "Number", name: "num", widget: "string" }
+              - { label: "Label", name: "lbl", widget: "string" }
+          - label: "About Story"
+            name: "about_story"
+            widget: "object"
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string", default: "Our story" }
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Paragraph 1", name: "p1", widget: "text" }
+              - { label: "Paragraph 2", name: "p2", widget: "text" }
+              - label: "About Image"
+                name: "image"
+                widget: "image"
+                required: false
+
+  # ============================================================
+  # SERVICES
+  # ============================================================
+  - name: "services"
+    label: "Services"
+    folder: "_data/services"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Service Name", name: "title", widget: "string" }
+      - { label: "Order (1, 2, 3, etc.)", name: "order", widget: "number" }
+      - { label: "Short Description (for cards)", name: "short_description", widget: "text" }
+      - { label: "Full Description", name: "full_description", widget: "markdown" }
+      - label: "What's Included"
+        name: "includes"
+        widget: "list"
+        fields:
+          - { label: "Item", name: "item", widget: "string" }
+      - { label: "Service Icon URL", name: "icon", widget: "image", required: false }
+      - { label: "Anchor ID (lowercase, no spaces)", name: "slug", widget: "string" }
+
+  # ============================================================
+  # TEAM
+  # ============================================================
+  - name: "team"
+    label: "Team Members"
+    folder: "_data/team"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Full Name", name: "name", widget: "string" }
+      - { label: "Title (Dr., Mr., Mme., Ms.)", name: "title", widget: "string", required: false }
+      - { label: "Role", name: "role", widget: "string", hint: "e.g. President, Vice President, Pharmacist" }
+      - label: "Role Category"
+        name: "category"
+        widget: "select"
+        options: ["Executive Committee", "Clinical Staff", "Operations", "Community Health Worker"]
+      - { label: "Profession", name: "profession", widget: "string" }
+      - { label: "Bio", name: "bio", widget: "markdown", required: false }
+      - { label: "Photo", name: "photo", widget: "image", required: false }
+      - { label: "Order", name: "order", widget: "number", default: 1 }
+      - { label: "Show on homepage?", name: "featured", widget: "boolean", default: false }
+
+  # ============================================================
+  # PROGRAMMES
+  # ============================================================
+  - name: "programmes"
+    label: "Programmes"
+    folder: "_data/programmes"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Programme Name", name: "title", widget: "string" }
+      - { label: "Tag", name: "tag", widget: "string", hint: "e.g. Flagship, Community, Education" }
+      - { label: "Frequency", name: "frequency", widget: "string", hint: "e.g. Annual, Recurring, Ongoing" }
+      - { label: "Cost", name: "cost", widget: "string", hint: "e.g. Free, Subsidised" }
+      - { label: "Description", name: "description", widget: "markdown" }
+      - { label: "Featured image", name: "image", widget: "image", required: false }
+      - { label: "Order", name: "order", widget: "number", default: 1 }
+
+  # ============================================================
+  # NEWS / BLOG (for future use)
+  # ============================================================
+  - name: "news"
+    label: "News and Updates"
+    folder: "_data/news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Category", name: "category", widget: "select", options: ["Announcement", "Event", "Outreach", "Partnership", "Recognition"] }
+      - { label: "Featured image", name: "image", widget: "image", required: false }
+      - { label: "Summary (1, 2 sentences)", name: "summary", widget: "text" }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Author", name: "author", widget: "string", default: "Valmartin Healthcare Team" }

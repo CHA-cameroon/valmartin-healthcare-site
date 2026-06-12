@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /thanks.html
+
+Sitemap: https://valmartinhealthcare.org/sitemap.xml
